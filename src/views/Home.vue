@@ -5,7 +5,7 @@
             <div class="swiper-slide" v-for="item in bannerlist" :key="item.id"><img :src="item.imageUrl"></div>
         </homeswiper>
         <div class="grids">
-          <div class="gridschild" v-for="data in gridslist" :key="data.id">
+          <div class="gridschild" v-for="data in gridslist" :key="data.id" @click="handlecol(data.url)">
             <div>
               <p>{{data.title}}</p>
               <p>{{data.text}}</p>
@@ -17,7 +17,7 @@
           <div class="top-img"></div>
           <div class="top-swiper">
             <hotswiper title="top" :key="toplist.length">
-              <div class="swiper-slide topswi" v-for="data in toplist" :key="data.id" >
+              <div class="swiper-slide topswi" v-for="data in toplist" :key="data.id" @click="handle(data.id)">
                 <div>
                   <img :src="data.image">
                 </div>
@@ -91,7 +91,9 @@ export default {
   methods: {
     handle (id) {
       this.$router.push(`c/${id}`)
-      console.log(id)
+    },
+    handlecol (id) {
+      this.$router.push(`col/${id.split('=')[1]}`)
     }
   }
 }

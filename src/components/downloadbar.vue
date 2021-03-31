@@ -5,7 +5,7 @@
 export default {
   methods: {
     handle () {
-      this.$router.push('download')
+      this.$router.push('/download')
     }
   }
 }

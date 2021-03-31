@@ -15,18 +15,8 @@ export default {
   },
   methods: {
     handlesear () {
-      this.$router.push('search')
+      this.$router.push('/search')
     }
   }
 }
 </script>
-<style lang="scss">
-    .van-search{height: 50px;}
-    input.van-field__control{
-        width: 80%;
-        height: 30px;
-        margin: 10px 35px;
-        border-radius: 10px;
-        border:none
-    }
-</style>

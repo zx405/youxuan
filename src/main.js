@@ -10,3 +10,7 @@ new Vue({
   store,
   render: h => h(App)
 }).$mount('#app')
+
+// router.afterEach(function (to) {
+//   window.scrollTo(0, 0)
+//  })

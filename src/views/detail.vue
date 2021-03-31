@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="back" @click="handle">&lt;</div>
+        <div class="back" @click="handle"><van-icon name="arrow-left" /></div>
         <detailswiper :key="photolist.length">
             <div class="swiper-slide detailphoto" v-for="data in photolist" :key="data.seq">
                 <img :src="data.url">
@@ -31,9 +31,9 @@
 <script>
 import http from '@/util/http'
 import detailswiper from '../components/detalswiper'
-import { Icon } from 'vant'
+import { Icon, Toast } from 'vant'
 import Vue from 'vue'
-Vue.use(Icon)
+Vue.use(Icon).use(Toast)
 Vue.directive('sh', {
   update (el) {
     if (el.previousSibling.innerHTML === '') {
@@ -62,11 +62,16 @@ export default {
       this.detaillist = res.data.data.detail
       this.photolist = res.data.data.detail.photo
       this.imglist = res.data.data.detail.descContentList
+      Toast.loading({
+        message: '加载中...',
+        forbidClick: true
+      })
     })
+    Toast.setDefaultOptions({ duration: 500 })
   },
   methods: {
     handle () {
-      this.$router.back()
+      this.$router.go(-1)
     },
     show () {
       this.showpage = true
@@ -113,7 +118,7 @@ export default {
     .back{
         width: 50px;
         height: 50px;
-        line-height: 50px;
+        line-height: 54px;
         text-align: center;
         background: rgba(0,0,0,0.3);
         position: fixed;
@@ -122,7 +127,7 @@ export default {
         z-index: 1000;
         border-radius: 50%;
         color:#fff;
-        font-size: 18px;
+        font-size: 20px;
     }
     .content{
         background: #fff;

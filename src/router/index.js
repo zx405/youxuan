@@ -5,6 +5,9 @@ import search from '../views/search.vue'
 import tab from '../views/tab.vue'
 import detail from '../views/detail.vue'
 import download from '../views/download.vue'
+import coursetab from '../views/coursetab.vue'
+import category from '../views/category.vue'
+import searchword from '../views/searchword.vue'
 
 Vue.use(VueRouter)
 
@@ -22,11 +25,11 @@ const routes = [
     component: home
   },
   {
-    path: '*/search',
+    path: '/search',
     component: search
   },
   {
-    path: '*/download',
+    path: '/download',
     component: download
   },
   {
@@ -35,19 +38,41 @@ const routes = [
     component: tab
   },
   {
-    path: '/tab/c/:myid',
+    path: '/c/:myid',
     component: detail
   },
   {
-    path: '/c/:myid',
-    redirect: '/tab/c/:myid'
+    path: '/category/:myid',
+    component: category
+  },
+  {
+    path: '/col/:myid',
+    redirect: 'col/:myid/sub/7'
+  },
+  {
+    path: '/col/:myid/sub/:youid',
+    component: coursetab
+  },
+  {
+    path: '/sub/c/:myid',
+    component: detail
+  },
+  {
+    path: '/searchword/:myid',
+    component: searchword
   }
-
 ]
 
 const router = new VueRouter({
   mode: 'hash',
-  routes
+  routes,
+  scrollBehavior (to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition
+    } else {
+      return { x: 0, y: 0 }
+    }
+  }
 })
 
 export default router

@@ -11,7 +11,7 @@
 // import { Toast } from 'vant'
 import axios from 'axios'
 const http = axios.create({
-  baseURL: 'https://www.xiongmaoyouxuan.com',
+  baseURL: 'http://www.xiongmaoyouxuan.com',
   timeout: 10000
 })
 // http 进行拦截（发请求之前，收到相应之后可以提前拦截？？？）

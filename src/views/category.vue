@@ -1,18 +1,6 @@
 <template>
     <div>
       <hearder></hearder>
-        <div class="head">
-            <div class="title">{{datalis.categoriesTitle}}</div>
-            <div class="item">
-                <ul>
-                    <li v-for="data in datalist" :key="data.id" @click="handleitem(data.id)">
-                        <img :src="data.imageUrl" alt="">
-                        <div>{{data.title}}</div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="middle">大家都在逛</div>
         <div class="items">
           <van-list
             v-model="loading"
@@ -20,7 +8,7 @@
             finished-text="没有更多了"
             @load="onLoad"
           >
-            <van-cell v-for="data in itemlist" :key="data.id" @click="handle(data.id)">
+            <van-cell v-for="data in itemlist" :key="data.id">
               <img :src="data.image" v-showitem>
                 <div v-if="data.title">
                   <p>{{data.title}}<p>
@@ -51,8 +39,6 @@ export default {
   components: { hearder, downloadbar },
   data () {
     return {
-      datalist: [],
-      datalis: '',
       itemlist: [],
       finished: false,
       loading: false,
@@ -61,29 +47,21 @@ export default {
   },
   mounted () {
     http({
-      url: `/api/tab/${this.$route.params.myid}?start=0`
+      url: `/api/category/${this.$route.params.myid}/items?start=0&sort=0`
     }).then(res => {
-      this.datalist = res.data.data.categories
-      this.datalis = res.data.data
-      this.itemlist = res.data.data.items.list
+
     })
   },
   methods: {
-    handle (id) {
-      this.$router.push(`/c/${id}`)
-    },
-    handleitem (id) {
-      this.$router.push(`/category/${id}`)
-    },
     onLoad () {
       this.current += 20
       http({
-        url: `/api/tab/${this.$route.params.myid}/feeds?start=${this.current}&sort=0`
+        url: `/api/category/${this.$route.params.myid}/items?start=${this.current}&sort=0`
       }).then(res => {
         setTimeout(() => {
-          this.itemlist = [...this.itemlist, ...res.data.data.list]
+          this.itemlist = [...this.itemlist, ...res.data.data.items.list]
           this.loading = false
-          if (res.data.data.isEnd === true) {
+          if (res.data.data.items.isEnd === true) {
             this.finished = true
           }
         }, 0)
@@ -93,43 +71,6 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-    .head{
-        padding:  10px;
-        background: #fff;
-        .title{
-            width: 100%;
-            text-align: center;
-            height: 30px;
-            line-height: 30px;
-        }
-        .item{
-            width: 100%;
-            ul{
-                display: flex;
-                width: 100%;
-                flex-wrap: wrap;
-
-                li{
-                    width: 25%;
-                    text-align: center;
-                    img{
-                        width: 50px;
-                        height: 50px;
-                    }
-                    div{
-                        font-size: 14px;
-                    }
-                }
-            }
-        }
-    }
-    .middle{
-        width: 100%;
-        height: 30px;
-        line-height: 30px;
-        text-align: center;
-        font-size: 12px;
-    }
     .items{
       background: gainsboro;
         .van-cell{

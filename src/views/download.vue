@@ -1,15 +1,15 @@
 <template>
     <div>
-        <img src="../../public/logo-shadow.e4d934c.png" alt="">
+        <img src="/logo-shadow.e4d934c.png" alt="">
         <h1>只卖全网最低价</h1>
         <p>下载APP</p>
-        <img src="../../public/aqkx_83x30.png" alt="">
+        <img src="/aqkx_83x30.png" alt="">
     </div>
 </template>
 <style lang="scss" scoped>
     div{
         height: 100vh;
-        background: #fff url('../../public/download-bg.591c43a.png') no-repeat top;
+        background: #fff url('/download-bg.591c43a.png') no-repeat top;
         background-size: 100% auto;
         overflow: hidden;
         img{
